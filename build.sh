@@ -99,9 +99,9 @@ cd /opt/ssfs/wlp/usr/servers/omsserver
 
 rm server.xml
 
-mv ${PRESENT_WORK_DIR}/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
+sudo mv ${PRESENT_WORK_DIR}/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
 
-mv ${PRESENT_WORK_DIR}/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
+sudo mv ${PRESENT_WORK_DIR}/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
 
 cp /opt/ssfs/runtime/external_deployments/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
 
