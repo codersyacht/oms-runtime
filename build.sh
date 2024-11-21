@@ -2,6 +2,8 @@
 
 export PRESENT_WORK_DIR=`pwd`
 
+echo "Present Working Directory " ${PRESENT_WORK_DIR}
+
 export PRESENT_WORK_DIR=
 
 export ENTITLED_REGISTRY=cp.icr.io
