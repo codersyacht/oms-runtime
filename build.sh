@@ -105,6 +105,6 @@ mv ${PRESENT_WORK_DIR}/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.optio
 
 cp /opt/ssfs/runtime/external_deployments/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
 
-cd /opt/ssfs/wlp/usr/servers/omsserver/bin
+cd /opt/ssfs/wlp/bin
 
 ./server start omsserver
