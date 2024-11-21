@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export PRESENT_WORK_DIR=`pwd`
+
+export PRESENT_WORK_DIR=
+
 export ENTITLED_REGISTRY=cp.icr.io
 
 export ENTITLED_REGISTRY_USER=cp
@@ -44,9 +48,9 @@ echo "Executing install3rdParty"
 
 ./install3rdParty.sh yfsextn 1_0 -j /opt/ssfs/3rdpartyjars/* -targetJVM EVERY
 
-cp /home/admin/apps/oms-runtime-build/sandbox.cfg_postgres /opt/ssfs/runtime/properties/sandbox.cfg
+cp ${PRESENT_WORK_DIR}/sandbox.cfg_postgres /opt/ssfs/runtime/properties/sandbox.cfg
 
-cp /home/admin/apps/oms-runtime-build/customer_overrides.properties /opt/ssfs/runtime/properties/customer_overrides.properties
+cp ${PRESENT_WORK_DIR}/customer_overrides.properties /opt/ssfs/runtime/properties/customer_overrides.properties
 
 echo "Executing setupfiles"
 
@@ -71,9 +75,13 @@ echo "Executing buildear"
 
 cd /opt/ssfs/
 
+export JAVA_HOME=/opt/ssfs/runtime/jdk
+
+export PATH=$JAVA_HOME/bin:$PATH 
+
 mkdir jndi
 
-cp /home/admin/apps/oms-runtime-build/.bindings /opt/ssfs/jndi/
+cp ${PRESENT_WORK_DIR}/.bindings /opt/ssfs/jndi/
 
 wget -O wlp.zip https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/24.0.0.11/wlp-webProfile8-24.0.0.11.zip
 
@@ -91,9 +99,9 @@ cd /opt/ssfs/wlp/usr/servers/omsserver
 
 rm server.xml
 
-mv /home/admin/apps/oms-runtime-build/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
+mv ${PRESENT_WORK_DIR}/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
 
-mv /home/admin/apps/oms-runtime-build/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
+mv ${PRESENT_WORK_DIR}/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
 
 cp /opt/ssfs/runtime/external_deployments/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
 
