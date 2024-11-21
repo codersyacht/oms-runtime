@@ -46,6 +46,8 @@ echo "Executing install3rdParty"
 
 cp /home/admin/apps/oms-runtime-build/sandbox.cfg_postgres /opt/ssfs/runtime/properties/sandbox.cfg
 
+cp /home/admin/apps/oms-runtime-build/customer_overrides.properties /opt/ssfs/runtime/properties/customer_overrides.properties
+
 echo "Executing setupfiles"
 
 ./setupfiles.sh
@@ -66,7 +68,12 @@ echo "Executing buildear"
 
 ./buildear.sh -Dappserver=websphere -Dwarfiles=smcfs,sbc,sma -Dearfile=smcfs.ear -Ddevmode=true -Dnowebservice=true -Dnodocear=true create-ear
 
+
 cd /opt/ssfs/
+
+mkdir jndi
+
+cp /home/admin/apps/oms-runtime-build/.bindings /opt/ssfs/jndi/
 
 wget -O wlp.zip https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/24.0.0.11/wlp-webProfile8-24.0.0.11.zip
 
@@ -80,3 +87,16 @@ cd /opt/ssfs/wlp/bin
 
 ./server create omsserver
 
+cd /opt/ssfs/wlp/usr/servers/omsserver
+
+rm server.xml
+
+mv /home/admin/apps/oms-runtime-build/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
+
+mv /home/admin/apps/oms-runtime-build/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
+
+cp /opt/ssfs/runtime/external_deployments/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
+
+cd /opt/ssfs/wlp/usr/servers/omsserver/bin
+
+./server start omsserver
