@@ -115,7 +115,7 @@ rm -rf /opt/ssfs/wlp/usr/servers/omsserver/logs/*
 
 rm /opt/ssfs/wlp/usr/servers/omsserver/dropins/smcfs.ear
 
-cp /opt/ssfs/wlp/usr/servers/omsserver/apps/expanded/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
+mv /opt/ssfs/wlp/usr/servers/omsserver/apps/expanded/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
 
 ./server start omsserver
 
