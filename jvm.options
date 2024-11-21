@@ -1,5 +1,5 @@
 -Dvendor=shell
--DvendorFile=servers.properties
+-DvendorFile=/opt/ssfs/runtime/properties/servers.properties
 -Xms4096m
 -Xmx4096m
 -Dhttps.protocols=TLSv1.2
