@@ -22,101 +22,12 @@ docker run -e LICENSE=accept -e LANG --privileged -v omsruntime:/images  -idt --
 
 docker ps
 
-docker exec -it -w /opt/ssfs/runtime/bin omsruntime ./sci_ant.sh -f buildApplicationManagerClient.xml
+mkdir -p ${PRESENT_WORK_DIR}/opt/ssfs/runtime/dbjar/jdbc/postgresql
 
-sudo mkdir -p /opt/ssfs
+wget -O ${PRESENT_WORK_DIR}/opt/ssfs/runtime/dbjar/jdbc/postgresql/postgresql.jar https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.24/postgresql-42.2.24.jar
 
-sudo chmod -R 777  /opt/ssfs
+docker cp ${PRESENT_WORK_DIR}/opt/ssfs/runtime/* omsruntime:/opt/ssfs/runtime/
 
-sudo chown -R admin:admin /opt/ssfs
+docker exec -it omsruntime mkdir -p /opt/ssfs/runtime/ThirdPartyJars
 
-docker cp omsruntime:/opt/ssfs/runtime /opt/ssfs
-
-mkdir -p /opt/ssfs/3rdpartyjars
-
-cd /opt/ssfs/3rdpartyjars
-
-wget -O postgresql.jar https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.24/postgresql-42.2.24.jar
-
-pwd
-
-ls
-
-cd /opt/ssfs/runtime/bin
-
-echo "Executing install3rdParty"
-
-./install3rdParty.sh yfsextn 1_0 -j /opt/ssfs/3rdpartyjars/* -targetJVM EVERY
-
-cp ${PRESENT_WORK_DIR}/sandbox.cfg_postgres /opt/ssfs/runtime/properties/sandbox.cfg
-
-cp ${PRESENT_WORK_DIR}/customer_overrides.properties /opt/ssfs/runtime/properties/customer_overrides.properties
-
-echo "Executing setupfiles"
-
-./setupfiles.sh
-
-echo "Executing dbverify"
-
-./dbverify.sh
-
-echo "Executing deployer"
-
-./deployer.sh -t entitydeployer
-
-echo "Executing loadFactoryDefault"
-
-./loadFactoryDefaults.sh
-
-echo "Executing buildear"
-
-./buildear.sh -Dappserver=websphere -Dwarfiles=smcfs,sbc,sma -Dearfile=smcfs.ear -Ddevmode=true -Dnowebservice=true -Dnodocear=true create-ear
-
-
-cd /opt/ssfs/
-
-export JAVA_HOME=/opt/ssfs/runtime/jdk
-
-export PATH=$JAVA_HOME/bin:$PATH 
-
-mkdir jndi
-
-cp ${PRESENT_WORK_DIR}/.bindings /opt/ssfs/jndi/
-
-wget -O wlp.zip https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/24.0.0.11/wlp-webProfile8-24.0.0.11.zip
-
-unzip wlp.zip
-
-rm wlp.zip
-
-cd /opt/ssfs/wlp/bin
-
-./installUtility install servlet-3.1
-
-./server create omsserver
-
-cd /opt/ssfs/wlp/usr/servers/omsserver
-
-rm server.xml
-
-sudo cp ${PRESENT_WORK_DIR}/server.xml /opt/ssfs/wlp/usr/servers/omsserver/server.xml
-
-sudo cp ${PRESENT_WORK_DIR}/jvm.options /opt/ssfs/wlp/usr/servers/omsserver/jvm.options
-
-cp /opt/ssfs/runtime/external_deployments/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
-
-cd /opt/ssfs/wlp/bin
-
-./server start omsserver
-
-./server stop omsserver
-
-rm -rf /opt/ssfs/wlp/usr/servers/omsserver/logs/*
-
-rm /opt/ssfs/wlp/usr/servers/omsserver/dropins/smcfs.ear
-
-mv /opt/ssfs/wlp/usr/servers/omsserver/apps/expanded/smcfs.ear /opt/ssfs/wlp/usr/servers/omsserver/dropins/
-
-./server start omsserver
-
-
+docker cp ${PRESENT_WORK_DIR}/ThirdPartyJars/* omsruntime:/opt/ssfs/runtime/ThirdPartyJars/
