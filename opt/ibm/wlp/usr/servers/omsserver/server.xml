@@ -18,5 +18,5 @@
                   
     <!-- Automatically expand WAR files and EAR files -->
     <applicationManager autoExpand="true"/>
-    <keyStore id="defaultKeyStore" location="/home/admin/apps/wlp/usr/servers/omsserver/omsserver.p12" password="password" type="PKCS12"/>
+    <keyStore id="defaultKeyStore" location="/opt/ibm/wlp/usr/servers/omsserver/omsserver.p12" password="password" type="PKCS12"/>
 </server>
