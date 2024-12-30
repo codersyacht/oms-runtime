@@ -34,7 +34,7 @@ buildah tag om-app:10.0 docker.io/codersyacht/oms-app:${INSTALL_VERSION}-${DB_NA
 
 buildah tag om-agent:10.0 docker.io/codersyacht/oms-agent:${INSTALL_VERSION}-${DB_NAME}-${TAG_VERSION}
 
-buildah login docker.io -u codersyacht -p dckr_pat_Eri5kDp1h_Fy4-N05FHNAwW-c1E
+buildah login docker.io -u codersyacht -p <personal-access-token>
 
 buildah push docker.io/codersyacht/oms-app:${INSTALL_VERSION}-${DB_NAME}-${TAG_VERSION}
 
