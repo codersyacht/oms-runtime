@@ -38,3 +38,6 @@ docker cp ${PRESENT_WORK_DIR}/ThirdPartyJars/. omsruntime:/opt/ssfs/runtime/Thir
 
 echo "Copying image build script"
 docker cp ${PRESENT_WORK_DIR}/build-images.sh omsruntime:/opt/ssfs/
+
+echo "Copying docker key"
+docker cp ${PRESENT_WORK_DIR}/git-key omsruntime:/opt/ssfs/runtime/container-scripts/imagebuild/
