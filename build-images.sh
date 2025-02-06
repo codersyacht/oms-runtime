@@ -1,11 +1,5 @@
 #!/bin/bash
 
-export INSTALL_VERSION=10.0.2409.1-amd64
-
-export DB_NAME=db2
-
-export TAG_VERSION=v1
-
 cd /opt/ssfs/runtime/bin
 
 ./setupfiles.sh
@@ -34,7 +28,7 @@ buildah tag om-app:10.0 docker.io/codersyacht/oms-app:${INSTALL_VERSION}-${DB_NA
 
 buildah tag om-agent:10.0 docker.io/codersyacht/oms-agent:${INSTALL_VERSION}-${DB_NAME}-${TAG_VERSION}
 
-buildah login docker.io -u codersyacht -p "$(<docker-key)" 
+buildah login -u codersyacht -p "$(<docker-key)" docker.io
 
 buildah push docker.io/codersyacht/oms-app:${INSTALL_VERSION}-${DB_NAME}-${TAG_VERSION}
 
